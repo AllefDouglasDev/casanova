@@ -62,8 +62,10 @@ export default function NewItem() {
           value={category}
           onChange={(e) => setCategory(e.target.value)}
         >
-          {Categories.map((c) => (
-            <option value={c}>{c}</option>
+          {Categories.map((c, index) => (
+            <option key={String(index)} value={c}>
+              {c}
+            </option>
           ))}
         </select>
 
