@@ -5,7 +5,7 @@ import { MdKitchen } from "react-icons/md"
 import { FaShower } from "react-icons/fa"
 import { GiSofa } from "react-icons/gi"
 import { getItems, setItem } from "services/item.service"
-import * as S from "./styles"
+import * as S from "../../assets/styles/items/styles"
 import { Item } from "core/types"
 
 export default function Items() {

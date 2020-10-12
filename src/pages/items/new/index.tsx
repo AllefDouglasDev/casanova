@@ -3,7 +3,7 @@ import { Categories } from "core/types"
 import Router from "next/router"
 import { FormEvent, useState } from "react"
 import { addItem } from "services/item.service"
-import * as S from "./styles"
+import * as S from "../../../assets/styles/items/new/styles"
 
 const PASSWORD = "reginaldo"
 
