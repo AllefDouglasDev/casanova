@@ -117,13 +117,13 @@ export default function Items() {
       <S.ListsWrapper>
         <S.ItemList>
           <S.IconWrapper>
-            <MdKitchen size={90} color="#327FA6" />
-            <h1>Cozinha</h1>
+            <GiSofa size={90} color="#327FA6" />
+            <h1>Sala</h1>
           </S.IconWrapper>
 
           <S.Separator />
 
-          {kitchenItems.map((item) => (
+          {roomItems.map((item) => (
             <CheckItem
               key={item.id}
               item={item}
@@ -168,13 +168,13 @@ export default function Items() {
 
         <S.ItemList>
           <S.IconWrapper>
-            <GiSofa size={90} color="#327FA6" />
-            <h1>Sala</h1>
+            <MdKitchen size={90} color="#327FA6" />
+            <h1>Cozinha</h1>
           </S.IconWrapper>
 
           <S.Separator />
 
-          {roomItems.map((item) => (
+          {kitchenItems.map((item) => (
             <CheckItem
               key={item.id}
               item={item}
