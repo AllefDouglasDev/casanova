@@ -14,10 +14,29 @@ export default function Items() {
   const [modalTitle, setModalTitle] = useState("")
   const [currentItem, setCurrentItem] = useState<Item>()
 
-  const kitchenItems = items.filter((item) => item.category === "cozinha")
-  const bathroomItems = items.filter((item) => item.category === "banheiro")
-  const bedroomItems = items.filter((item) => item.category === "quarto")
-  const roomItems = items.filter((item) => item.category === "sala")
+  function byName(a: Item, b: Item) {
+    if (a.name < b.name) {
+      return -1
+    }
+    if (a.name > b.name) {
+      return 1
+    }
+
+    return 0
+  }
+
+  const kitchenItems = items
+    .filter((item) => item.category === "cozinha")
+    .sort(byName)
+  const bathroomItems = items
+    .filter((item) => item.category === "banheiro")
+    .sort(byName)
+  const bedroomItems = items
+    .filter((item) => item.category === "quarto")
+    .sort(byName)
+  const roomItems = items
+    .filter((item) => item.category === "sala")
+    .sort(byName)
 
   function handleModalOpen() {
     setModalOpen(true)
