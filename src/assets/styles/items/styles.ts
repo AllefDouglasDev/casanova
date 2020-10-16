@@ -21,12 +21,14 @@ export const ItemList = styled.div`
   flex-direction: column;
 `
 
-export const IconWrapper = styled.div`
+export const IconWrapper = styled.a`
   width: 100%;
   display: flex;
   align-items: center;
+  cursor: pointer;
 
   h1 {
+    flex: 1;
     font-size: 35px;
     color: #327fa6;
     padding-left: 10px;
@@ -35,4 +37,16 @@ export const IconWrapper = styled.div`
 
 export const Separator = styled.hr`
   margin: 20px 0;
+`
+
+interface AccordionProps {
+  open?: boolean
+  height: string
+}
+
+export const Accordion = styled.div<AccordionProps>`
+  /* display: ${({ open }) => (open ? "block" : "none")}; */
+  overflow: hidden;
+  max-height: ${({ open, height }) => (open ? height : "0px")};
+  transition: max-height 0.2s ease-out;
 `
