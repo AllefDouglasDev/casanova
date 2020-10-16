@@ -45,8 +45,19 @@ interface AccordionProps {
 }
 
 export const Accordion = styled.div<AccordionProps>`
-  /* display: ${({ open }) => (open ? "block" : "none")}; */
   overflow: hidden;
   max-height: ${({ open, height }) => (open ? height : "0px")};
-  transition: max-height 0.2s ease-out;
+  transition: max-height 0.4s ease-out;
+`
+
+export const Loading = styled.div`
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+
+  span {
+    font-size: 22px;
+    color: #327fa6;
+  }
 `

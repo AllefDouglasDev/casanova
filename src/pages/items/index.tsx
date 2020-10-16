@@ -125,125 +125,131 @@ export default function Items() {
         onMyName={handleMyName}
       />
 
-      <S.ListsWrapper>
-        <S.ItemList>
-          <S.IconWrapper
-            onClick={() => setRoomToggle((prevState) => !prevState)}
-          >
-            <GiSofa size={90} color="#327FA6" />
-            <h1>Sala</h1>
-            {roomToggle ? (
-              <FiMinus size={30} color="#327FA6" />
-            ) : (
-              <FiPlus size={30} color="#327FA6" />
-            )}
-          </S.IconWrapper>
+      {!items || items?.length <= 0 ? (
+        <S.Loading>
+          <span>Carregando...</span>
+        </S.Loading>
+      ) : (
+        <S.ListsWrapper>
+          <S.ItemList>
+            <S.IconWrapper
+              onClick={() => setRoomToggle((prevState) => !prevState)}
+            >
+              <GiSofa size={90} color="#327FA6" />
+              <h1>Sala</h1>
+              {roomToggle ? (
+                <FiMinus size={30} color="#327FA6" />
+              ) : (
+                <FiPlus size={30} color="#327FA6" />
+              )}
+            </S.IconWrapper>
 
-          <S.Separator />
+            <S.Separator />
 
-          <S.Accordion
-            ref={roomRef}
-            open={roomToggle}
-            height={`${roomRef.current?.scrollHeight}px`}
-          >
-            {roomItems.map((item) => (
-              <CheckItem
-                key={item.id}
-                item={item}
-                onAddOwner={() => handleAddOwner(item)}
-              />
-            ))}
-          </S.Accordion>
-        </S.ItemList>
+            <S.Accordion
+              ref={roomRef}
+              open={roomToggle}
+              height={`${roomRef.current?.scrollHeight}px`}
+            >
+              {roomItems.map((item) => (
+                <CheckItem
+                  key={item.id}
+                  item={item}
+                  onAddOwner={() => handleAddOwner(item)}
+                />
+              ))}
+            </S.Accordion>
+          </S.ItemList>
 
-        <S.ItemList>
-          <S.IconWrapper
-            onClick={() => setBedroomToggle((prevState) => !prevState)}
-          >
-            <BiBed size={90} color="#327FA6" />
-            <h1>Quarto</h1>
-            {bedroomToggle ? (
-              <FiMinus size={30} color="#327FA6" />
-            ) : (
-              <FiPlus size={30} color="#327FA6" />
-            )}
-          </S.IconWrapper>
+          <S.ItemList>
+            <S.IconWrapper
+              onClick={() => setBedroomToggle((prevState) => !prevState)}
+            >
+              <BiBed size={90} color="#327FA6" />
+              <h1>Quarto</h1>
+              {bedroomToggle ? (
+                <FiMinus size={30} color="#327FA6" />
+              ) : (
+                <FiPlus size={30} color="#327FA6" />
+              )}
+            </S.IconWrapper>
 
-          <S.Separator />
+            <S.Separator />
 
-          <S.Accordion
-            ref={bedroomRef}
-            open={bedroomToggle}
-            height={`${bedroomRef.current?.scrollHeight}px`}
-          >
-            {bedroomItems.map((item) => (
-              <CheckItem
-                key={item.id}
-                item={item}
-                onAddOwner={() => handleAddOwner(item)}
-              />
-            ))}
-          </S.Accordion>
-        </S.ItemList>
+            <S.Accordion
+              ref={bedroomRef}
+              open={bedroomToggle}
+              height={`${bedroomRef.current?.scrollHeight}px`}
+            >
+              {bedroomItems.map((item) => (
+                <CheckItem
+                  key={item.id}
+                  item={item}
+                  onAddOwner={() => handleAddOwner(item)}
+                />
+              ))}
+            </S.Accordion>
+          </S.ItemList>
 
-        <S.ItemList>
-          <S.IconWrapper
-            onClick={() => setBathroomToggle((prevState) => !prevState)}
-          >
-            <FaShower size={90} color="#327FA6" />
-            <h1>Banheiro</h1>
-            {bathroomToggle ? (
-              <FiMinus size={30} color="#327FA6" />
-            ) : (
-              <FiPlus size={30} color="#327FA6" />
-            )}
-          </S.IconWrapper>
+          <S.ItemList>
+            <S.IconWrapper
+              onClick={() => setBathroomToggle((prevState) => !prevState)}
+            >
+              <FaShower size={90} color="#327FA6" />
+              <h1>Banheiro</h1>
+              {bathroomToggle ? (
+                <FiMinus size={30} color="#327FA6" />
+              ) : (
+                <FiPlus size={30} color="#327FA6" />
+              )}
+            </S.IconWrapper>
 
-          <S.Separator />
-          <S.Accordion
-            ref={bathroomRef}
-            open={bathroomToggle}
-            height={`${bathroomRef.current?.scrollHeight}px`}
-          >
-            {bathroomItems.map((item) => (
-              <CheckItem
-                key={item.id}
-                item={item}
-                onAddOwner={() => handleAddOwner(item)}
-              />
-            ))}
-          </S.Accordion>
-        </S.ItemList>
+            <S.Separator />
+            <S.Accordion
+              ref={bathroomRef}
+              open={bathroomToggle}
+              height={`${bathroomRef.current?.scrollHeight}px`}
+            >
+              {bathroomItems.map((item) => (
+                <CheckItem
+                  key={item.id}
+                  item={item}
+                  onAddOwner={() => handleAddOwner(item)}
+                />
+              ))}
+            </S.Accordion>
+          </S.ItemList>
 
-        <S.ItemList>
-          <S.IconWrapper
-            onClick={() => setKitchenToggle((prevState) => !prevState)}
-          >
-            <MdKitchen size={90} color="#327FA6" />
-            <h1>Cozinha</h1>
-            {kitchenToggle ? (
-              <FiMinus size={30} color="#327FA6" />
-            ) : (
-              <FiPlus size={30} color="#327FA6" />
-            )}
-          </S.IconWrapper>
+          <S.ItemList>
+            <S.IconWrapper
+              onClick={() => setKitchenToggle((prevState) => !prevState)}
+            >
+              <MdKitchen size={90} color="#327FA6" />
+              <h1>Cozinha</h1>
+              {kitchenToggle ? (
+                <FiMinus size={30} color="#327FA6" />
+              ) : (
+                <FiPlus size={30} color="#327FA6" />
+              )}
+            </S.IconWrapper>
 
-          <S.Separator />
-          <S.Accordion
-            ref={kitchenRef}
-            open={kitchenToggle}
-            height={`${kitchenRef.current?.scrollHeight}px`}
-          >
-            {kitchenItems.map((item) => (
-              <CheckItem
-                key={item.id}
-                item={item}
-                onAddOwner={() => handleAddOwner(item)}
-              />
-            ))}
-          </S.Accordion>
-        </S.ItemList>
-      </S.ListsWrapper>
+            <S.Separator />
+            <S.Accordion
+              ref={kitchenRef}
+              open={kitchenToggle}
+              height={`${kitchenRef.current?.scrollHeight}px`}
+            >
+              {kitchenItems.map((item) => (
+                <CheckItem
+                  key={item.id}
+                  item={item}
+                  onAddOwner={() => handleAddOwner(item)}
+                />
+              ))}
+            </S.Accordion>
+          </S.ItemList>
+        </S.ListsWrapper>
+      )}
     </S.Container>
   )
 }
