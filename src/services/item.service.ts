@@ -16,3 +16,11 @@ export function setItem(item: Item) {
     .child(item.id || "")
     .set(item)
 }
+
+export function removeItem(item: Item) {
+  if (item.id) {
+    return Database.ref("items").child(item.id).remove();
+  } else {
+    return Promise.reject("Item não encontrado");
+  }
+}

@@ -9,7 +9,7 @@ export function Header() {
     <HeaderContainer>
       <CoupleName>
         <BiHomeHeart size={30} color="#8a6365" />
-        <span>Allef {"&"} Sinara</span>
+        <span>Brena {"&"} Sérgio</span>
       </CoupleName>
 
       <HouseIcon size={80} />
