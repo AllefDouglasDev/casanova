@@ -1,1 +1,0 @@
-export { HouseIcon } from "./House"

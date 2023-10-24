@@ -1,52 +1,64 @@
-import { useEffect, useMemo } from "react";
-import { getItems } from "services/item.service";
-import { Item } from "core/types";
+import { ReactNode, useEffect, useMemo } from "react";
 import { useState } from "react";
+import { sortByName } from "@/utils/sort";
+import { getItems } from "@/services/itemService";
+import { Item } from "@/types/models";
+import { FaShower } from "react-icons/fa";
+import { BiBed } from "react-icons/bi";
+import { GiSofa } from "react-icons/gi";
+import { MdKitchen } from "react-icons/md";
 
-function byName(a: Item, b: Item) {
-  if (a.name < b.name) {
-    return -1;
-  }
-  if (a.name > b.name) {
-    return 1;
-  }
+const ICON_COLOR = "#064e3b";
+const ICON_SIZE = 30; 
 
-  return 0;
+function getCategoryIcon(categoryName: string) {
+  switch (categoryName) {
+    case "cozinha":
+      return <MdKitchen size={ICON_SIZE} color={ICON_COLOR} />;
+    case "banheiro":
+      return <FaShower size={ICON_SIZE} color={ICON_COLOR} />;
+    case "quarto":
+      return <BiBed size={ICON_SIZE} color={ICON_COLOR} />;
+    case "sala":
+      return <GiSofa size={ICON_SIZE} color={ICON_COLOR} />;
+  }
 }
 
 export function useListItems() {
   const [items, setItems] = useState<Item[]>([]);
 
-  const {
-    kitchenItems,
-    bathroomItems,
-    bedroomItems,
-    roomItems,
-  } = useMemo(() => {
-    const kitchenItems = items
-      .filter((item) => item.category === "cozinha")
-      .sort(byName);
-    const bathroomItems = items
-      .filter((item) => item.category === "banheiro")
-      .sort(byName);
-    const bedroomItems = items
-      .filter((item) => item.category === "quarto")
-      .sort(byName);
-    const roomItems = items
-      .filter((item) => item.category === "sala")
-      .sort(byName);
-    return { kitchenItems, bathroomItems, bedroomItems, roomItems };
+  const categories = useMemo(() => {
+    return items
+      .reduce<{ name: string; icon: ReactNode; items: Item[] }[]>(
+        (categories, item) => {
+          const category = categories.find((c) => c.name === item.category);
+          if (category) {
+            category.items.push(item);
+          } else {
+            categories.push({
+              name: item.category,
+              icon: getCategoryIcon(item.category),
+              items: [item],
+            });
+          }
+          return categories;
+        },
+        []
+      )
+      .map((category) => ({
+        ...category,
+        items: category.items.sort(sortByName),
+      }));
   }, [items]);
 
   useEffect(() => {
     getItems((snapshot) => {
-      if (!snapshot.val()) return;
-
+      if (!snapshot.val()) {
+        return
+      }
       const itemList: Item[] = [];
-
       Object.keys(snapshot.val()).forEach((key) => {
         const currentItem = snapshot.val()[key] as Item;
-
         itemList.push({
           id: key,
           name: currentItem.name,
@@ -54,10 +66,9 @@ export function useListItems() {
           category: currentItem.category,
         });
       });
-
       setItems(itemList);
     });
   }, []);
 
-  return { items, kitchenItems, bathroomItems, bedroomItems, roomItems };
+  return { isLoading: items.length === 0, items, categories };
 }
