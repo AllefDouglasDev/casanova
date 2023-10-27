@@ -7,7 +7,11 @@ import { Button } from "./Button";
 import { PASSWORD, CATEGORIES } from "@/utils/consts";
 import Link from "next/link";
 
-export const CreateItem = () => {
+type CreateItemProps = {
+  onPasswordChange?: (value: string) => void
+}
+
+export const CreateItem = ({ onPasswordChange }: CreateItemProps) => {
   const inputNameRef = useRef<HTMLInputElement>(null);
   const [itemName, setItemName] = useState("");
   const [password, setPassword] = useState("");
@@ -71,7 +75,10 @@ export const CreateItem = () => {
         placeholder="Senha"
         type="password"
         value={password}
-        onChange={(e) => setPassword(e.target.value)}
+        onChange={(e) => {
+          setPassword(e.target.value)
+          onPasswordChange?.(e.target.value)
+        }}
       />
       {message.text &&<span
         className={

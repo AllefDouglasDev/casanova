@@ -7,8 +7,14 @@ import { useState } from "react";
 import { MdDelete, MdEdit } from "react-icons/md";
 import { EditItem } from "./EditItem";
 import { BsGiftFill } from "react-icons/bs";
+import { PASSWORD } from "@/utils/consts";
+import { ConfirmModal } from "./ConfirmModal";
 
-export const AdminItemList = () => {
+type AdminItemListProps = {
+  passwordInput?: string;
+};
+
+export const AdminItemList = ({ passwordInput }: AdminItemListProps) => {
   const { categories } = useListItems();
   const [editingItem, setEditingItem] = useState<Item | undefined>();
 
@@ -18,6 +24,16 @@ export const AdminItemList = () => {
 
   const cancelEdit = () => {
     setEditingItem(undefined);
+  };
+
+  const handleRemoveItem = (item: Item) => {
+    const response = prompt(
+      `Tem certeza que quer deletar o item ${item.name}`,
+      passwordInput
+    );
+    if (response === PASSWORD) {
+      removeItem(item.id || "");
+    }
   };
 
   return (
@@ -51,12 +67,15 @@ export const AdminItemList = () => {
                       <button type="button" onClick={() => editItem(item)}>
                         <MdEdit color="gray" size={25} />
                       </button>
-                      <button
-                        type="button"
-                        onClick={() => removeItem(item.id || "")}
+                      <ConfirmModal
+                        title={`Tem certeza que quer deletar o item ${item.name}`}
+                        defaultPassword={passwordInput}
+                        onConfirm={() => removeItem(item.id || "")}
                       >
-                        <MdDelete color="gray" size={25} />
-                      </button>
+                        <button type="button">
+                          <MdDelete color="gray" size={25} />
+                        </button>
+                      </ConfirmModal>
                     </div>
                   </li>
                 )
